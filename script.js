@@ -12,7 +12,8 @@ var g = { // g means Game
   feedback: "",
   qaPairs: [],
   qaPair: {},
-  qaPairIndex: 0
+  qaPairIndex: 0,
+  inProgress: false,
 }
 var s = { // s means Settings
   theme: 'light',
@@ -57,7 +58,7 @@ if (typeof localStorage.getItem('settings') === 'string') {
   s = JSON.parse(localStorage.getItem('settings')); // overwrite default settings with saved settings
 }
 if (typeof localStorage.getItem('decks') === 'string') {
-  d = JSON.parse(localStorage.getItem('decks')); // overwrite default decks with saved decks
+  d = JSON.parse(localStorage.getItem('decks')).decks; // overwrite default decks with saved decks
 }
 
 function populateVoiceList() {
@@ -97,9 +98,17 @@ function setNextQuestion() {
     g.feedback = "Congratulations! You've Actively Recalled every concept!"
     g.question = "";
     g.answer = "";
+    g.inProgress = false;
     speak(g.feedback);
   }
   m.redraw();
+}
+
+function setButtonHighlight(buttonName) {
+  document.getElementById('game_btn').classList.remove("btn_highlight");
+  document.getElementById('decks_btn').classList.remove("btn_highlight");
+  document.getElementById('settings_btn').classList.remove("btn_highlight");
+  document.getElementById(buttonName).classList.add("btn_highlight");
 }
 
 function cloneObj(orig) {
@@ -114,22 +123,28 @@ function loadGame(deck) {
     g.qaPairs = cloneObj(deck);
     g.qaPair = {};
     g.qaPairIndex = 0;
+    g.inProgress = true;
     setNextQuestion();
 }
 
 function submitAnswer() {
-  if(!g.answerSubmitted) {
-    g.answerSubmitted = true;
-    if (g.answerAttempt === g.answer) {
-      g.qaPairs.splice(g.qaPairs.indexOf(g.qaPair), 1);
-      g.feedback = `"${g.answerAttempt}" is the correct answer!`;
+  if (g.inProgress) {
+    if(!g.answerSubmitted) {
+      g.answerSubmitted = true;
+      if (g.answerAttempt === g.answer) {
+        g.qaPairs.splice(g.qaPairs.indexOf(g.qaPair), 1);
+        g.feedback = `"${g.answerAttempt}" is the correct answer!`;
+      } else {
+        g.feedback = `"${g.answerAttempt}" is incorrect. The correct answer is "${g.answer}"`;
+      }
+      speak(g.feedback, setNextQuestion);
     } else {
-      g.feedback = `"${g.answerAttempt}" is incorrect. The correct answer is "${g.answer}"`;
+      synth.cancel();
+      setNextQuestion();
     }
-    speak(g.feedback, setNextQuestion);
   } else {
-    synth.cancel();
-    setNextQuestion();
+    speak(g.question);
+    m.route.set('/decks');
   }
 }
 
@@ -160,6 +175,28 @@ function speak(text, onend){
     synth.speak(utterThis);
   }
 }
+
+function importDecks(file) {
+  const reader = new FileReader();
+  reader.addEventListener('load', (event) => {
+    var importText = event.target.result;
+    localStorage.setItem('decks', importText);
+    d = JSON.parse(importText).decks;
+    m.redraw();
+  });
+  reader.readAsText(file);
+}
+
+function exportDecks() {
+  function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+  download(JSON.stringify({decks: d}), 'active_recall_decks.json', 'application/json');
+}
 // ====end Functions====
 
 // ====start Mithril Components====
@@ -168,10 +205,10 @@ var answerForm = {
       return m("form", {
         onsubmit: function(e) {
             e.preventDefault();
-            submitAnswer();
+            submitAnswer(e);
         }
       }, [
-          m("input.input[type=text][placeholder=Type answer here...]", {
+          m("input.input[type=text][placeholder=Type answer here...][autocomplete=off]", {
             oncreate: function() {document.getElementById('answer_attempt').focus()},
             oninput: function (e) {g.answerAttempt = e.target.value},
             value: g.answerAttempt,
@@ -250,10 +287,41 @@ var speechSynthesisOptions = {
   }
 }
 
+var ImportExport = {
+  view: function() {
+    return m('div', {class: 'file_buttons_container'}, [
+        m('h3', 'Decks I/O'),
+        m('div', {class: 'import button_container'}, [
+          m('label[for=import_file]', 'Import Decks'),
+          m('input[type=file][id=import_file][name=import_file][accept=.json]',
+          {
+            onchange: function(e) {
+              const fileList = event.target.files;
+              if (fileList.length === 1) {
+                importDecks(fileList[0]);
+              }
+            }
+          })
+        ]),
+        m('div', {class: 'export button_container'}, [
+          m('label[for=export_file]', 'Export Decks'),
+          m('button', {name: 'export_file', onclick: exportDecks}, 'Download as JSON')
+        ])
+      ])
+  }
+}
+
 var Game = {
+  oncreate: function() {
+    setButtonHighlight('game_btn');
+    if (!g.inProgress) {
+      g.question = 'Select a deck to play';
+      m.redraw();
+    }
+  },
   view: function() {
     return m("section", {class: 'game_section'}, [
-      m("h2", "Question"),
+      // m("h2", "Question"),
       m("p", {class: "question"}, g.question),
       m(answerForm),
       m("p", {class: "feedback"}, g.feedback)
@@ -262,28 +330,26 @@ var Game = {
 }
 
 var Decks = {
+  oncreate: function() {
+    setButtonHighlight('decks_btn');
+  },
   view: function() {
     return m('div', {class: 'decks_container'},
     [
-      m('h2', 'Decks'),
+      // m('h2', 'Decks'),
       d.map(i => m("div", {class: 'deck_container'}, [
         m('h3', i.name),
-        m('p', {class: 'card_count'}, i.cards.length + ' Cards'),
+        m('span', {class: 'card_count'}, i.cards.length + ' Cards'),
         m('button', {
           onclick: function() {
             loadGame(i.cards);
             m.route.set('/game')
           }
-        }, 'Play'),
-        m('button', {
-          onclick: function() {
-            m.route.set();
-          }
-        }, 'View'),
-        i.cards.map(j => m('div', {class: 'card_container'}, [
-          m('p', 'Question: ' + j.q),
-          m('p', 'Answer: ' + j.a)
-        ]))
+        }, 'Play')
+        // i.cards.map(j => m('div', {class: 'card_container'}, [
+        //   m('p', 'Question: ' + j.q),
+        //   m('p', 'Answer: ' + j.a)
+        // ]))
       ]))
     ]);
   }
@@ -291,10 +357,14 @@ var Decks = {
 
 
 var Settings = {
+  oncreate: function() {
+    setButtonHighlight('settings_btn');
+  },
   view: function() {
     return m("section", {id: "speech_synth_options"}, [
-      m('h2', 'Settings'),
-      m(speechSynthesisOptions)
+      // m('h2', 'Settings'),
+      m(speechSynthesisOptions),
+      m(ImportExport)
     ]);
   }
 };
@@ -302,9 +372,12 @@ var Settings = {
 var Header = {
   view: function() {
     return m("header", [
-      m('button', {onclick: function() {m.route.set("/decks")}}, "Decks"),
       m("h1", "Active Recall"),
-      m('button', {onclick: function() {m.route.set("/settings")}}, "Settings")
+      m('div', [
+        m('button', {id: 'game_btn', onclick: function() {m.route.set("/game")}}, "Game"),
+        m('button', {id: 'decks_btn', onclick: function() {m.route.set("/decks")}}, "Decks"),
+        m('button', {id: 'settings_btn', onclick: function() {m.route.set("/settings")}}, "Settings"),
+      ])
     ]);
   }
 };

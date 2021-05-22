@@ -3,6 +3,9 @@ body {
   /* color: #ffffff; */
   font-family: sans-serif;
   background-color: #ffffff;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 main {
@@ -11,6 +14,13 @@ main {
 }
 
 header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+header div {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -22,12 +32,50 @@ header {
   justify-content: center;
 }
 
-header > a, .deck_container {
+.header > a, .deck_container {
   box-shadow: black 2px 2px 5px;
   margin: 1em;
   padding: 2em;
   border: black solid 1px;
   background-color: #ffffff;
+}
+
+.decks_container .deck_container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
+  padding: 1em;
+}
+
+.deck_container h3 {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.deck_container span {
+  margin: 1em;
+}
+
+.file_buttons_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.file_buttons_container h3 {
+  align-self: flex-start;
+}
+
+
+.button_container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 23em;
+}
+
+.export.button_container > button {
+  margin-right: 8em;
 }
 
 section {
@@ -38,10 +86,28 @@ section {
 
 h1 {
   text-align: center;
+  font-style: italic;
+  letter-spacing: 1em;
+  text-shadow: #888888 9px 1px 5px;
+  margin-left: 0.8em;
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: black;
 }
 
 h2 {
   margin-block-start: 0.41em;
+}
+
+.game_section {
+  text-align: center;
+}
+
+.question {
+  height: 5em;
+  margin-block-start: 3em;
+  line-height: 1.3em;
 }
 
 #answer_attempt {
@@ -88,4 +154,8 @@ button {
   height: 3em;
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.btn_highlight {
+  box-shadow: CornflowerBlue 0.3em 0.3em 0.0em, CornflowerBlue -0.3em -0.3em 0.0em, CornflowerBlue -0.3em 0.3em 0.0em, CornflowerBlue 0.3em -0.3em 0.0em;
 }
