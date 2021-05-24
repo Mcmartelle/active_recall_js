@@ -3,6 +3,8 @@ var root = document.body;
 var synth = window.speechSynthesis;
 
 var voices = [];
+var voice = {}
+var prevVoiceLength = 0;
 var voiceTestString = "Hello there.";
 var g = { // g means Game
   question: "",
@@ -14,42 +16,52 @@ var g = { // g means Game
   qaPair: {},
   qaPairIndex: 0,
   inProgress: false,
+  correctCount: 0,
+  incorrectCount: 0
 }
 var s = { // s means Settings
   theme: 'light',
   rate: 1,
   pitch: 1,
   volume: 1,
-  voice: {}
+  voiceName: ''
 }
 var d = [ // d means Decks
   {
-    name: 'Sample 1',
+    name: 'What is active recall?',
     cards: [
       {
-        q: "What is 2 + 2?",
-        a: "4"
+        q: "Learning something by just reading it over and over.",
+        a: "passive review"
       },
       {
-        q: "What is the first letter of the alphabet?",
-        a: "a"
+        q: "When you try to think of the answer on the back of a flashcard without looking first",
+        a: "active recall"
       },
       {
-        q: "Is water wet?",
-        a: "yes"
+        q: "This is a local first app. Your decks are saved to 'blank' in your browser and not sent over the internet.",
+        a: "localStorage"
       },
+      {
+        q: "Adjust the rate, 'blank', volume, and voice synthesizer on the Settings page",
+        a: "pitch"
+      }
     ],
   },
   {
-    name: 'Sample 2',
+    name: 'Adding Your Own Decks',
     cards: [
       {
-        q: "What color is blue paint?",
-        a: "blue"
+        q: "Save the current decks as a file by going to Settings and clicking the 'blank blank blank' button",
+        a: "Download as JSON"
       },
       {
-        q: "What is 5 x 5?",
-        a: "25"
+        q: "Add 'blank' and cards in your own JSON file",
+        a: "decks"
+      },
+      {
+        q: "Upload your own JSON of decks and cards by clicking the 'blank blank' button in Settings",
+        a: "Choose File"
       }
     ]
   }
@@ -70,13 +82,38 @@ function populateVoiceList() {
   });
   console.log('populateVoiceList');
   if (voices.length > 0) {
-    if (Object.keys(s.voice).length === 0) {
-      s.voice = voices[0];
+    console.log('voices.length > 0');
+    console.log('s.voiceName before', s.voiceName);
+    if (s.voiceName === '') {
+      console.log('s.voiceName === ""');
+      if (localStorage.getItem('settings') && localStorage.getItem('settings').voice) {
+        console.log('localStorage has voiceName');
+        s.voiceName = localStorage.getItem('settings').voice;
+      } else {
+        console.log('localStorage no has voiceName');
+        s.voiceName = voices[1].name;
+      }
     }
+    voice = getVoice();
+    m.redraw();
   }
 }
 
-populateVoiceList()
+function voiceSelectOptionsChange() {
+  var voiceSelect = document.getElementById('voice_select');
+  console.log('voiceSelect.value: ',voiceSelect.value);
+  if(voiceSelect.options.length > 0 && voiceSelect.options.length >= voices.length) {
+    console.log('options are there');
+    voiceSelect.options[voices.indexOf(voice)].selected = true;
+  }
+}
+
+function voiceSelectOnUpdate() {
+  if (voices.length > 0 && voices.length !== prevVoiceLength) {
+    voiceSelectOptionsChange();
+  }
+  prevVoiceLength = voices.length;
+}
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
   speechSynthesis.onvoiceschanged = populateVoiceList;
@@ -95,10 +132,8 @@ function setNextQuestion() {
     g.answer = g.qaPair.a;
     speak(g.question);
   } else {
+    clearGame();
     g.feedback = "Congratulations! You've Actively Recalled every concept!"
-    g.question = "";
-    g.answer = "";
-    g.inProgress = false;
     speak(g.feedback);
   }
   m.redraw();
@@ -115,16 +150,24 @@ function cloneObj(orig) {
   return JSON.parse(JSON.stringify(orig));
 }
 
+function clearGame() {
+  g.question = "";
+  g.answer = "";
+  g.answerAttempt = "";
+  g.feedback = "";
+  g.qaPairs = [];
+  g.qaPair = {};
+  g.qaPairIndex = 0;
+  g.inProgress = false;
+  g.correctCount = 0;
+  g.incorrectCount = 0;
+}
+  
 function loadGame(deck) {
-    g.question = "";
-    g.answer = "";
-    g.answerAttempt = "";
-    g.feedback = "";
-    g.qaPairs = cloneObj(deck);
-    g.qaPair = {};
-    g.qaPairIndex = 0;
-    g.inProgress = true;
-    setNextQuestion();
+  clearGame();
+  g.inProgress = true;
+  g.qaPairs = cloneObj(deck);
+  setNextQuestion();
 }
 
 function submitAnswer() {
@@ -133,8 +176,10 @@ function submitAnswer() {
       g.answerSubmitted = true;
       if (g.answerAttempt === g.answer) {
         g.qaPairs.splice(g.qaPairs.indexOf(g.qaPair), 1);
+        g.correctCount++;
         g.feedback = `"${g.answerAttempt}" is the correct answer!`;
       } else {
+        g.incorrectCount++;
         g.feedback = `"${g.answerAttempt}" is incorrect. The correct answer is "${g.answer}"`;
       }
       speak(g.feedback, setNextQuestion);
@@ -143,8 +188,17 @@ function submitAnswer() {
       setNextQuestion();
     }
   } else {
+    g.question = 'Select a deck to play';
     speak(g.question);
     m.route.set('/decks');
+  }
+}
+
+function getVoice() {
+  for(i = 0; i < voices.length ; i++) {
+    if(voices[i].name === s.voiceName) {
+      return voices[i];
+    }
   }
 }
 
@@ -152,7 +206,7 @@ function speak(text, onend){
   if (synth.speaking) {
     synth.cancel();
   }
-  if (text !== '' && s.voice && s.voice.name) {
+  if (text !== '' && s.voiceName !== '') {
     var utterThis = new SpeechSynthesisUtterance(text);
     utterThis.onend = function (event) {
       console.log('SpeechSynthesisUtterance.onend');
@@ -163,12 +217,7 @@ function speak(text, onend){
     utterThis.onerror = function (event) {
         console.error('SpeechSynthesisUtterance.onerror');
     }
-    for(i = 0; i < voices.length ; i++) {
-      if(voices[i].name === s.voice.name) {
-        utterThis.voice = voices[i];
-        break;
-      }
-    }
+    utterThis.voice = getVoice();
     utterThis.pitch = s.pitch;
     utterThis.rate = s.rate;
     utterThis.volume = s.volume;
@@ -220,6 +269,7 @@ var answerForm = {
 }
 
 var speechSynthesisOptions = {
+  oncreate: populateVoiceList(),
   view: function() {
     return m("form", {class: "voice_options"}, [
       m("h3", "Voice Options"),
@@ -274,14 +324,16 @@ var speechSynthesisOptions = {
       ),
       m('label[for=voice]', {class: "voice_label"}, 'Voice'),
       m('select[name=voice]', {
-        value: s.voice,
+        value: s.voiceName,
+        id: 'voice_select',
         onchange: e => {
-          s.voice = voices[e.target.selectedIndex];
+          s.voiceName = voices[e.target.selectedIndex].name;
           speak(voiceTestString);
           localStorage.setItem('settings', JSON.stringify(s));
-        }
+        },
+        onupdate: voiceSelectOnUpdate
       }, [
-        voices.map(i => m('option', { value: i, "data-lang": i.lang, "data-name": i.name }, i.name + ' (' + i.lang + ')' + (i.default ? " -- DEFAULT": '')))
+        voices.map(i => m('option', { value: i.name, "data-lang": i.lang, "data-name": i.name }, i.name + ' (' + i.lang + ')' + (i.default ? " -- DEFAULT": '')))
       ])
     ]);
   }
@@ -311,20 +363,48 @@ var ImportExport = {
   }
 }
 
+var scoreBoard = {
+  view: function() {
+    return m('div', {class: 'score_board'}, [
+      m('h3', 'Scoreboard'),
+      m('p', [
+        m('span', 'Remaining'),
+        m('span', g.qaPairs.length)
+      ]),
+      m('p', [
+        m('span', 'Correct'),
+        m('span', g.correctCount)
+      ]),
+      m('p', [
+        m('span', 'Incorrect'),
+        m('span', g.incorrectCount)
+      ])
+    ]);
+  }
+};
+
+var gameBoard = {
+  view: function() {
+    return m('div', {class: 'game_board'}, [
+      m("p", {class: "question"}, g.question),
+      m(answerForm),
+      m("p", {class: "feedback"}, g.feedback)
+    ]);
+  }
+};
+
 var Game = {
   oncreate: function() {
     setButtonHighlight('game_btn');
     if (!g.inProgress) {
       g.question = 'Select a deck to play';
-      m.redraw();
+      // m.redraw();
     }
   },
   view: function() {
     return m("section", {class: 'game_section'}, [
-      // m("h2", "Question"),
-      m("p", {class: "question"}, g.question),
-      m(answerForm),
-      m("p", {class: "feedback"}, g.feedback)
+      m(scoreBoard),
+      m(gameBoard)
     ])
   }
 }

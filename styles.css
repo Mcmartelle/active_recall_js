@@ -32,7 +32,7 @@ header div {
   justify-content: center;
 }
 
-.header > a, .deck_container {
+.header > a, .deck_container, .score_board {
   box-shadow: black 2px 2px 5px;
   margin: 1em;
   padding: 2em;
@@ -42,18 +42,19 @@ header div {
 
 .decks_container .deck_container {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-around;
   padding: 1em;
 }
 
 .deck_container h3 {
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .deck_container span {
-  margin: 1em;
+  white-space: nowrap;
+  margin: 0.5em;
 }
 
 .file_buttons_container {
@@ -79,9 +80,9 @@ header div {
 }
 
 section {
-  min-width: 45%;
-  max-width: 95%;
-  width: 20em;
+  /* min-width: 45%; */
+  max-width: 90%;
+  /* width: 20em; */
 }
 
 h1 {
@@ -90,6 +91,7 @@ h1 {
   letter-spacing: 1em;
   text-shadow: #888888 9px 1px 5px;
   margin-left: 0.8em;
+  margin-block-end: 0.3em;
   color: black;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1.5px;
@@ -102,12 +104,46 @@ h2 {
 
 .game_section {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.score_board {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  width: 8em;
+  height: 8em;
+  padding: 1em;
+}
+
+.score_board h3 {
+  /* text-align: left; */
+  margin: 0.5em;
+}
+
+.score_board p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3em;
+}
+
+.game_board {
+  /* flex-grow: 3; */
+  width: 26em;
 }
 
 .question {
   height: 5em;
   margin-block-start: 3em;
   line-height: 1.3em;
+}
+
+.feedback {
+  line-height: 1.5em;
 }
 
 #answer_attempt {
