@@ -91,7 +91,7 @@ function populateVoiceList() {
         s.voiceName = localStorage.getItem('settings').voice;
       } else {
         console.log('localStorage no has voiceName');
-        s.voiceName = voices[1].name;
+        s.voiceName = voices[0].name;
       }
     }
     voice = getVoice();
