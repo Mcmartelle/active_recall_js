@@ -342,7 +342,7 @@ var speechSynthesisOptions = {
 var ImportExport = {
   view: function() {
     return m('div', {class: 'file_buttons_container'}, [
-        m('h3', 'Decks I/O'),
+        m('h3', 'Deck Options'),
         m('div', {class: 'import button_container'}, [
           m('label[for=import_file]', 'Import Decks'),
           m('input[type=file][id=import_file][name=import_file][accept=.json]',
