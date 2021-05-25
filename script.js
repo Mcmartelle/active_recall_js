@@ -6,6 +6,7 @@ var voices = [];
 var voice = {}
 var prevVoiceLength = 0;
 var voiceTestString = "Hello there.";
+
 var g = { // g means Game
   question: "",
   answer: "",
@@ -66,6 +67,7 @@ var d = [ // d means Decks
     ]
   }
 ];
+
 if (typeof localStorage.getItem('settings') === 'string') {
   s = JSON.parse(localStorage.getItem('settings')); // overwrite default settings with saved settings
 }
@@ -73,6 +75,13 @@ if (typeof localStorage.getItem('decks') === 'string') {
   d = JSON.parse(localStorage.getItem('decks')).decks; // overwrite default decks with saved decks
 }
 
+
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+// ====end Data====
+
+// ====start Functions====
 function populateVoiceList() {
   voices = synth.getVoices().sort(function (a, b) {
     const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
@@ -80,17 +89,11 @@ function populateVoiceList() {
     else if ( aname == bname ) return 0;
     else return +1;
   });
-  console.log('populateVoiceList');
   if (voices.length > 0) {
-    console.log('voices.length > 0');
-    console.log('s.voiceName before', s.voiceName);
     if (s.voiceName === '') {
-      console.log('s.voiceName === ""');
       if (localStorage.getItem('settings') && localStorage.getItem('settings').voice) {
-        console.log('localStorage has voiceName');
         s.voiceName = localStorage.getItem('settings').voice;
       } else {
-        console.log('localStorage no has voiceName');
         s.voiceName = voices[0].name;
       }
     }
@@ -103,7 +106,6 @@ function voiceSelectOptionsChange() {
   var voiceSelect = document.getElementById('voice_select');
   console.log('voiceSelect.value: ',voiceSelect.value);
   if(voiceSelect.options.length > 0 && voiceSelect.options.length >= voices.length) {
-    console.log('options are there');
     voiceSelect.options[voices.indexOf(voice)].selected = true;
   }
 }
@@ -115,12 +117,6 @@ function voiceSelectOnUpdate() {
   prevVoiceLength = voices.length;
 }
 
-if (speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = populateVoiceList;
-}
-// ====end Data====
-
-// ====start Functions====
 function setNextQuestion() {
   g.feedback = "";
   g.answerAttempt = "";
@@ -269,7 +265,9 @@ var answerForm = {
 }
 
 var speechSynthesisOptions = {
-  oncreate: populateVoiceList(),
+  oncreate: function() {
+    populateVoiceList();
+  },
   view: function() {
     return m("form", {class: "voice_options"}, [
       m("h3", "Voice Options"),
@@ -283,10 +281,9 @@ var speechSynthesisOptions = {
           class: "speech_range",
           value: s.rate,
           onchange: e => {
-            console.log(e.target.value);
             s.rate = e.target.value;
-            speak(voiceTestString);
             localStorage.setItem('settings', JSON.stringify(s));
+            speak(voiceTestString);
           }
         }
       ),
@@ -301,8 +298,8 @@ var speechSynthesisOptions = {
           value: s.pitch,
           onchange: e => {
             s.pitch = e.target.value;
-            speak(voiceTestString);
             localStorage.setItem('settings', JSON.stringify(s));
+            speak(voiceTestString);
           }
         }
       ),
@@ -317,8 +314,8 @@ var speechSynthesisOptions = {
           value: s.volume,
           onchange: e => {
             s.volume = e.target.value;
-            speak(voiceTestString);
             localStorage.setItem('settings', JSON.stringify(s));
+            speak(voiceTestString);
           }
         }
       ),
@@ -328,8 +325,8 @@ var speechSynthesisOptions = {
         id: 'voice_select',
         onchange: e => {
           s.voiceName = voices[e.target.selectedIndex].name;
-          speak(voiceTestString);
           localStorage.setItem('settings', JSON.stringify(s));
+          speak(voiceTestString);
         },
         onupdate: voiceSelectOnUpdate
       }, [
@@ -434,7 +431,6 @@ var Decks = {
     ]);
   }
 };
-
 
 var Settings = {
   oncreate: function() {
