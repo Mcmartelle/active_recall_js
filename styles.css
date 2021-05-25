@@ -1,6 +1,4 @@
 body {
-  /* background-color: #000000; */
-  /* color: #ffffff; */
   font-family: sans-serif;
   background-color: #ffffff;
   margin: 0;
@@ -10,7 +8,6 @@ body {
 
 main {
   margin: 0 auto;
-  /* padding: 2em; */
 }
 
 header {
@@ -80,9 +77,7 @@ header div {
 }
 
 section {
-  /* min-width: 45%; */
   max-width: 90%;
-  /* width: 20em; */
 }
 
 h1 {
@@ -91,7 +86,8 @@ h1 {
   letter-spacing: 1em;
   text-shadow: #888888 9px 1px 5px;
   margin-left: 0.8em;
-  margin-block-end: 0.3em;
+  -webkit-margin-after: 0.3em;
+          margin-block-end: 0.3em;
   color: black;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1.5px;
@@ -99,7 +95,8 @@ h1 {
 }
 
 h2 {
-  margin-block-start: 0.41em;
+  -webkit-margin-before: 0.41em;
+          margin-block-start: 0.41em;
 }
 
 .game_section {
@@ -121,7 +118,6 @@ h2 {
 }
 
 .score_board h3 {
-  /* text-align: left; */
   margin: 0.5em;
 }
 
@@ -132,13 +128,13 @@ h2 {
 }
 
 .game_board {
-  /* flex-grow: 3; */
   width: 26em;
 }
 
 .question {
   height: 5em;
-  margin-block-start: 3em;
+  -webkit-margin-before: 3em;
+          margin-block-start: 3em;
   line-height: 1.3em;
 }
 
@@ -161,8 +157,10 @@ h2 {
 .label_container {
   display: flex;
   justify-content: space-between;
-  margin-block-start: 0.2em;
-  margin-block-end: 0;
+  -webkit-margin-before: 0.2em;
+          margin-block-start: 0.2em;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
   padding: 0 0.4em;
 }
 
@@ -172,17 +170,15 @@ h2 {
 
 .voice_label {
   padding-left: 0.4em;
-  margin-block-start: 0.1em;
-  margin-block-end: 0.3em;
+  -webkit-margin-before: 0.1em;
+          margin-block-start: 0.1em;
+  -webkit-margin-after: 0.3em;
+          margin-block-end: 0.3em;
 }
 
 select {
   height: 3em;
   padding: 0 1em;
-}
-
-label {
-  /* height: 3em; */
 }
 
 button {
@@ -194,4 +190,5 @@ button {
 
 .btn_highlight {
   box-shadow: CornflowerBlue 0.3em 0.3em 0.0em, CornflowerBlue -0.3em -0.3em 0.0em, CornflowerBlue -0.3em 0.3em 0.0em, CornflowerBlue 0.3em -0.3em 0.0em;
+  -webkit-appearance: none;
 }
