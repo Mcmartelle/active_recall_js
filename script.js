@@ -225,7 +225,8 @@ function importDecks(file) {
     var importText = event.target.result;
     localStorage.setItem('decks', importText);
     d = JSON.parse(importText).decks;
-    m.redraw();
+    clearGame();
+    m.route.set('/decks');
   });
   reader.readAsText(file);
 }
