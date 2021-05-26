@@ -104,7 +104,6 @@ function populateVoiceList() {
 
 function voiceSelectOptionsChange() {
   var voiceSelect = document.getElementById('voice_select');
-  console.log('voiceSelect.value: ',voiceSelect.value);
   if(voiceSelect.options.length > 0 && voiceSelect.options.length >= voices.length) {
     voiceSelect.options[voices.indexOf(voice)].selected = true;
   }
@@ -205,7 +204,6 @@ function speak(text, onend){
   if (text !== '' && s.voiceName !== '') {
     var utterThis = new SpeechSynthesisUtterance(text);
     utterThis.onend = function (event) {
-      console.log('SpeechSynthesisUtterance.onend');
       if (typeof onend === 'function') {
         onend(event);
       }
