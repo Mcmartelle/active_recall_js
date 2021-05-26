@@ -21,11 +21,11 @@ var g = { // g means Game
   incorrectCount: 0
 }
 var s = { // s means Settings
-  theme: 'light',
   rate: 1,
   pitch: 1,
   volume: 1,
-  voiceName: ''
+  voiceName: '',
+  theme: 'dark'
 }
 var d = [ // d means Decks
   {
@@ -74,6 +74,8 @@ if (typeof localStorage.getItem('settings') === 'string') {
 if (typeof localStorage.getItem('decks') === 'string') {
   d = JSON.parse(localStorage.getItem('decks')).decks; // overwrite default decks with saved decks
 }
+
+document.body.className = s.theme;
 
 
 if (speechSynthesis.onvoiceschanged !== undefined) {
@@ -359,6 +361,36 @@ var ImportExport = {
   }
 }
 
+var themeOptions = {
+  oncreate: function() {
+    document.getElementById(s.theme).checked = true;
+  },
+  view: function() {
+    return m('div', {class: 'file_buttons_container'}, [
+      m('h3', 'Theme'),
+      m('form', {
+        class: 'radios_container',
+        value: s.theme,
+        onchange: e => {
+          console.log('radio form value', e.target.value);
+          s.theme = e.target.value;
+          localStorage.setItem('settings', JSON.stringify(s));
+          document.body.className = s.theme;
+        }
+      }, [
+        m('div', {class: 'radio_container'}, [
+          m('label[for=light]', 'Light'),
+          m('input[type=radio][id=light][name=theme][value=light]')
+        ]),
+        m('div', {class: 'radio_container'}, [
+          m('label[for=dark]', 'Dark'),
+          m('input[type=radio][id=dark][name=theme][value=dark]')
+        ])
+      ])
+    ]);
+  }
+}
+
 var scoreBoard = {
   view: function() {
     return m('div', {class: 'score_board'}, [
@@ -439,7 +471,8 @@ var Settings = {
     return m("section", {id: "speech_synth_options"}, [
       // m('h2', 'Settings'),
       m(speechSynthesisOptions),
-      m(ImportExport)
+      m(ImportExport),
+      m(themeOptions)
     ]);
   }
 };
