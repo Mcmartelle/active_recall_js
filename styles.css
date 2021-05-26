@@ -230,6 +230,10 @@ button {
   padding-right: 1em;
 }
 
+button, input, .radios_container label {
+  cursor:pointer;
+}
+
 .btn_highlight {
   box-shadow: CornflowerBlue 0.3em 0.3em 0.0em, CornflowerBlue -0.3em -0.3em 0.0em, CornflowerBlue -0.3em 0.3em 0.0em, CornflowerBlue 0.3em -0.3em 0.0em;
   -webkit-appearance: none;
