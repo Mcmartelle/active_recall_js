@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  font-size: 16px;
   margin: 0;
   width: 100%;
   height: 100%;
@@ -13,6 +14,37 @@ body.light {
 body.dark {
   background-color: #000000;
   color: #dddddd;
+}
+
+body.gameboy {
+  background-color: #88c070;
+  color: #081820;
+  font-family: 'Go Mono', sans-serif;
+}
+
+@font-face {
+  font-family: 'Go Mono';
+  src: url('fonts/Go-Mono.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Go Mono';
+  src: url('fonts/Go-Mono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Go Mono';
+  src: url('fonts/Go-Mono-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Go Mono';
+  src: url('fonts/Go-Mono-Bold-Italic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
 }
 
 main {
@@ -56,6 +88,13 @@ header div {
   background-color: #000000;
 }
 
+.gameboy .header > a, .gameboy .deck_container, .gameboy .score_board {
+  box-shadow: #081820 2px 2px 5px;
+  border: #346856 solid 1px;
+  background-color: #e0f8d0;
+  color: #346856;
+}
+
 .decks_container .deck_container {
   display: flex;
   align-items: center;
@@ -92,8 +131,12 @@ header div {
   margin-left: 0.3em;
 }
 
+#import_file {
+  width: 16em;
+}
+
 .export.button_container > button {
-  margin-right: 8em;
+  margin-right: 4em;
 }
 
 .radios_container {
@@ -136,6 +179,13 @@ h1 {
   -webkit-text-stroke-color: #ffffff;
 }
 
+.gameboy h1 {
+  text-shadow: #346856 9px 1px 5px;
+  color: #346856;
+  -webkit-text-fill-color: #081820; /* Will override color (regardless of order) */
+  -webkit-text-stroke-color: #e0f8d0;
+}
+
 h2 {
   -webkit-margin-before: 0.41em;
           margin-block-start: 0.41em;
@@ -174,7 +224,7 @@ h2 {
 }
 
 .question {
-  height: 5em;
+  min-height: 5em;
   -webkit-margin-before: 3em;
           margin-block-start: 3em;
   line-height: 1.3em;
@@ -189,6 +239,11 @@ h2 {
   padding-left: 1em;
   padding-right: 1em;
   margin: 1em;
+}
+
+.gameboy #answer_attempt {
+  background-color: #e0f8d0;
+  color: #346856;
 }
 
 .voice_options {
@@ -207,6 +262,7 @@ h2 {
 }
 
 .speech_range {
+  margin-top: 0;
   margin-bottom: 1em;
 }
 
@@ -216,6 +272,11 @@ h2 {
           margin-block-start: 0.1em;
   -webkit-margin-after: 0.3em;
           margin-block-end: 0.3em;
+}
+
+.gameboy #settings h3 {
+  color: #e0f8d0;
+  text-shadow: #346856 2px 2px 0px;
 }
 
 select {
@@ -234,7 +295,157 @@ button, input, .radios_container label {
   cursor:pointer;
 }
 
+.gameboy button, .gameboy input, .gameboy .radios_container label {
+  font-family: 'Go Mono', sans-serif;
+}
+
+.gameboy button {
+  font-weight: bold;
+}
+
+button {
+  border-radius: 3px;
+  transition-duration: 0.4s;
+
+}
+
+.light button {
+  background-color: white;
+  color: black;
+  border: 1px solid #000000;
+}
+
+.light button:hover {
+  background-color: CornflowerBlue;
+  color: white;
+}
+
+.dark button {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.dark button:hover {
+  background-color: teal;
+  color: white;
+}
+
+.gameboy button {
+  background-color: #346856;
+  color: #e0f8d0;
+  border: 1px solid #88c070;
+}
+
+.gameboy button:hover {
+  background-color: #e0f8d0;
+  color: #346856;
+}
+
 .btn_highlight {
-  box-shadow: CornflowerBlue 0.3em 0.3em 0.0em, CornflowerBlue -0.3em -0.3em 0.0em, CornflowerBlue -0.3em 0.3em 0.0em, CornflowerBlue 0.3em -0.3em 0.0em;
   -webkit-appearance: none;
+}
+
+.light .btn_highlight {
+  box-shadow: CornflowerBlue 0.3em 0.3em 0.0em, CornflowerBlue -0.3em -0.3em 0.0em, CornflowerBlue -0.3em 0.3em 0.0em, CornflowerBlue 0.3em -0.3em 0.0em;
+}
+
+.dark .btn_highlight {
+  box-shadow: teal 0.3em 0.3em 0.0em, teal -0.3em -0.3em 0.0em, teal -0.3em 0.3em 0.0em, teal 0.3em -0.3em 0.0em;
+}
+
+.gameboy .btn_highlight {
+  box-shadow: #e0f8d0 0.3em 0.3em 0.0em, #e0f8d0 -0.3em -0.3em 0.0em, #e0f8d0 -0.3em 0.3em 0.0em, #e0f8d0 0.3em -0.3em 0.0em;
+  -webkit-appearance: none;
+}
+
+.gameboy input[type=range] {
+  height: 32px;
+  -webkit-appearance: none;
+  /* margin: 10px 0; */
+  width: 100%;
+  background-color: #88c070;
+}
+.gameboy input[type=range]:focus {
+  outline: none;
+}
+.gameboy input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 0px #081820;
+  background: #E0F8D0;
+  border-radius: 25px;
+  border: 1px solid #346856;
+}
+.gameboy input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #081820;
+  border: 1px solid #346856;
+  height: 24px;
+  width: 24px;
+  border-radius: 5px;
+  background: #E0F8D0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+.gameboy input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #E0F8D0;
+}
+.gameboy input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 0px #081820;
+  background: #E0F8D0;
+  border-radius: 25px;
+  border: 1px solid #346856;
+}
+.gameboy input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #081820;
+  border: 1px solid #346856;
+  height: 24px;
+  width: 24px;
+  border-radius: 5px;
+  background: #E0F8D0;
+  cursor: pointer;
+}
+.gameboy input[type=range]::-ms-track {
+  width: 100%;
+  height: 14px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.gameboy input[type=range]::-ms-fill-lower {
+  background: #E0F8D0;
+  border: 1px solid #346856;
+  border-radius: 50px;
+  box-shadow: 1px 1px 0px #081820;
+}
+.gameboy input[type=range]::-ms-fill-upper {
+  background: #E0F8D0;
+  border: 1px solid #346856;
+  border-radius: 50px;
+  box-shadow: 1px 1px 0px #081820;
+}
+.gameboy input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #081820;
+  border: 1px solid #346856;
+  height: 24px;
+  width: 24px;
+  border-radius: 5px;
+  background: #E0F8D0;
+  cursor: pointer;
+}
+.gameboy input[type=range]:focus::-ms-fill-lower {
+  background: #E0F8D0;
+}
+.gameboy input[type=range]:focus::-ms-fill-upper {
+  background: #E0F8D0;
 }

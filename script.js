@@ -25,7 +25,7 @@ var s = { // s means Settings
   pitch: 1,
   volume: 1,
   voiceName: '',
-  theme: 'dark'
+  theme: 'gameboy'
 }
 var d = [ // d means Decks
   {
@@ -379,6 +379,10 @@ var themeOptions = {
         }
       }, [
         m('div', {class: 'radio_container'}, [
+          m('label[for=gameboy]', 'GAME BOY'),
+          m('input[type=radio][id=gameboy][name=theme][value=gameboy]')
+        ]),
+        m('div', {class: 'radio_container'}, [
           m('label[for=light]', 'Light'),
           m('input[type=radio][id=light][name=theme][value=light]')
         ]),
@@ -468,7 +472,7 @@ var Settings = {
     setButtonHighlight('settings_btn');
   },
   view: function() {
-    return m("section", {id: "speech_synth_options"}, [
+    return m("section", {id: "settings"}, [
       // m('h2', 'Settings'),
       m(speechSynthesisOptions),
       m(ImportExport),
