@@ -20,13 +20,6 @@ var g = { // g means Game
   correctCount: 0,
   incorrectCount: 0
 }
-var s = { // s means Settings
-  rate: 1,
-  pitch: 1,
-  volume: 1,
-  voiceName: '',
-  theme: 'gameboy'
-}
 var d = [ // d means Decks
   {
     name: 'What is active recall?',
@@ -67,12 +60,21 @@ var d = [ // d means Decks
     ]
   }
 ];
-
-if (typeof localStorage.getItem('settings') === 'string') {
-  s = JSON.parse(localStorage.getItem('settings')); // overwrite default settings with saved settings
-}
 if (typeof localStorage.getItem('decks') === 'string') {
   d = JSON.parse(localStorage.getItem('decks')).decks; // overwrite default decks with saved decks
+}
+var lss = {};
+if (typeof localStorage.getItem('settings') === 'string') {
+  lss = JSON.parse(localStorage.getItem('settings')); // get localStorage settings
+}
+
+var s = { // s means Settings, applying localStorage settings or using a default value
+  rate: typeof lss.rate === 'string' ? lss.rate : '1',
+  pitch: typeof lss.pitch === 'string' ? lss.pitch : '1',
+  volume: typeof lss.volume === 'string' ? lss.volume : '1',
+  voiceName: typeof lss.voiceName === 'string' ? lss.voiceName : '',
+  theme: typeof lss.theme === 'string' ? lss.theme : 'gameboy',
+  caseSensitive: typeof lss.caseSensitive === 'string' ? lss.caseSensitive : 'insensitive'
 }
 
 document.body.className = s.theme;
@@ -171,7 +173,7 @@ function submitAnswer() {
   if (g.inProgress) {
     if(!g.answerSubmitted) {
       g.answerSubmitted = true;
-      if (g.answerAttempt === g.answer) {
+      if (g.answerAttempt === g.answer || (s.caseSensitive === 'insensitive' && g.answerAttempt.toLowerCase() === g.answer.toLowerCase())) {
         g.qaPairs.splice(g.qaPairs.indexOf(g.qaPair), 1);
         g.correctCount++;
         g.feedback = `"${g.answerAttempt}" is the correct answer!`;
@@ -395,6 +397,34 @@ var themeOptions = {
   }
 }
 
+var caseSensitivityOptions = {
+  oncreate: function() {
+    document.getElementById(s.caseSensitive).checked = true;
+  },
+  view: function() {
+    return m('div', {class: 'file_buttons_container'}, [
+      m('h3', 'Case Sensitivity'),
+      m('form', {
+        class: 'radios_container',
+        value: s.caseSensitive,
+        onchange: e => {
+          s.caseSensitive = e.target.value;
+          localStorage.setItem('settings', JSON.stringify(s));
+        }
+      }, [
+        m('div', {class: 'radio_container'}, [
+          m('label[for=insensitive]', 'cAse InSeNsitivE'),
+          m('input[type=radio][id=insensitive][name=theme][value=insensitive]')
+        ]),
+        m('div', {class: 'radio_container'}, [
+          m('label[for=sensitive]', 'Case Sensitive'),
+          m('input[type=radio][id=sensitive][name=theme][value=sensitive]')
+        ])
+      ])
+    ]);
+  }
+}
+
 var scoreBoard = {
   view: function() {
     return m('div', {class: 'score_board'}, [
@@ -476,7 +506,8 @@ var Settings = {
       // m('h2', 'Settings'),
       m(speechSynthesisOptions),
       m(ImportExport),
-      m(themeOptions)
+      m(themeOptions),
+      m(caseSensitivityOptions)
     ]);
   }
 };
