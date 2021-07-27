@@ -47,6 +47,10 @@ body.gameboy {
   font-style: italic;
 }
 
+form {
+  margin: 0;
+}
+
 main {
   margin: 0 auto;
 }
@@ -68,6 +72,7 @@ header div {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 3em;
 }
 
 .header > a, .deck_container, .score_board {
@@ -76,29 +81,54 @@ header div {
   padding: 2em;
 }
 
-.light .header > a, .light .deck_container, .light .score_board {
+.light .header > a, .light .deck_container, .light .score_board, .light .card_container {
   box-shadow: black 2px 2px 5px;
   border: black solid 1px;
   background-color: #ffffff;
 }
 
-.dark .header > a, .dark .deck_container, .dark .score_board {
+.dark .header > a, .dark .deck_container, .dark .score_board, .dark .card_container {
   box-shadow: #6effdd 2px 2px 5px;
   border: #6effdd solid 1px;
   background-color: #000000;
 }
 
-.gameboy .header > a, .gameboy .deck_container, .gameboy .score_board {
+.gameboy .header > a, .gameboy .deck_container, .gameboy .score_board, .gameboy .card_container {
   box-shadow: #081820 2px 2px 5px;
   border: #346856 solid 1px;
   background-color: #e0f8d0;
   color: #346856;
 }
 
-.decks_container .deck_container {
-  display: flex;
+.flex-col {
+  display:flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.flex-row {
+  display:flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.around {
+  justify-content: space-around;
+}
+
+.item-end {
+  align-self: flex-end;
+}
+
+.decks_container .deck_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 1em;
 }
 
@@ -110,6 +140,51 @@ header div {
 .deck_container span {
   white-space: nowrap;
   margin: 0.5em;
+}
+
+.cards_container {
+  text-align: center;
+  max-width: 100%;
+}
+
+.cards_container h2 {
+  margin: 0 0.5em;
+}
+
+.cards_container input {
+  padding: 0.5em 1em;
+}
+
+.card_container {
+  max-width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
+  justify-content: space-around;
+  padding: 1em;
+  margin: 1em;
+}
+
+.card_container h3 {
+  text-align: center;
+}
+
+.card_container textarea {
+  padding: 1em;
+  width: 100%;
+  /* width: 20em; */
+  /* height: 7em; */
+  min-height: 7em;
+}
+
+.card_container input {
+  padding: 0.5em 1em;
+}
+
+.card_container p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .file_buttons_container {
@@ -295,8 +370,16 @@ button, input, .radios_container label {
   cursor:pointer;
 }
 
-.gameboy button, .gameboy input, .gameboy .radios_container label {
+.gameboy button, .gameboy input, .gameboy .radios_container label, .gameboy textarea {
   font-family: 'Go Mono', sans-serif;
+}
+
+.light button, .light input, .light .radios_container label, .light textarea {
+  font-family: sans-serif;
+}
+
+.dark button, .dark input, .dark .radios_container label, .dark textarea {
+  font-family: sans-serif;
 }
 
 .gameboy button {
@@ -340,6 +423,18 @@ button {
 .gameboy button:hover {
   background-color: #e0f8d0;
   color: #346856;
+}
+
+.gameboy button.inverse {
+  background-color: #88c070;
+  color: #e0f8d0;
+  border: 1px solid #346856;
+  text-shadow: 1px 1px 2px #346856;
+}
+
+.gameboy button:hover.inverse {
+  background-color: #346856;
+  color: #e0f8d0;
 }
 
 .btn_highlight {

@@ -7,6 +7,9 @@ var voice = {}
 var prevVoiceLength = 0;
 var voiceTestString = "Hello there.";
 
+var deck = {}; // deck obj for edit page
+var deckIndex = 0;
+
 var g = { // g means Game
   question: "",
   answer: "",
@@ -223,6 +226,40 @@ function speak(text, onend){
   }
 }
 
+function createNewDeck() {
+  d.push({
+    name: 'New Deck',
+    cards: [
+      {
+        q: 'Type Question Here',
+        a: 'Type Answer Here'
+      }
+    ]
+  });
+}
+
+function saveDeck(updatedDeck, updatedDeckIndex) {
+  if (typeof updatedDeck !== 'undefined' && typeof updatedDeckIndex !== 'undefined') {
+    d[updatedDeckIndex] = updatedDeck;
+  }
+  localStorage.setItem('decks', JSON.stringify({decks: d}));
+}
+
+function removeDeck(deckIndex) {
+  d.splice(deckIndex, 1);
+}
+
+function createNewCard(cardsArr) {
+  cardsArr.push({
+    q: 'Type Question Here',
+    a: 'Type Answer Here'
+  });
+}
+
+function removeCard(cardsArr, cardIndex) {
+  cardsArr.splice(cardIndex, 1)
+}
+
 function importDecks(file) {
   const reader = new FileReader();
   reader.addEventListener('load', (event) => {
@@ -248,6 +285,76 @@ function exportDecks() {
 // ====end Functions====
 
 // ====start Mithril Components====
+var Main = {
+  view: function() {
+    return m("main", [
+      m(Header),
+      m("div", {id: "content"}, [
+        
+      ])
+    ])
+  }
+}
+
+var Header = {
+  view: function() {
+    return m("header", [
+      m("h1", "Active Recall"),
+      m('div', [
+        m('button', {id: 'game_btn', onclick: function() {m.route.set("/game")}}, "Game"),
+        m('button', {id: 'decks_btn', onclick: function() {m.route.set("/decks")}}, "Decks"),
+        m('button', {id: 'settings_btn', onclick: function() {m.route.set("/settings")}}, "Settings")
+      ])
+    ]);
+  }
+};
+
+var Game = {
+  oncreate: function() {
+    setButtonHighlight('game_btn');
+    if (!g.inProgress) {
+      g.question = 'Select a deck to play';
+      // m.redraw();
+    }
+  },
+  view: function() {
+    return m("section", {class: 'game_section'}, [
+      m(scoreBoard),
+      m(gameBoard)
+    ])
+  }
+}
+
+var scoreBoard = {
+  view: function() {
+    return m('div', {class: 'score_board'}, [
+      m('h3', 'Scoreboard'),
+      m('p', [
+        m('span', 'Remaining'),
+        m('span', g.qaPairs.length)
+      ]),
+      m('p', [
+        m('span', 'Correct'),
+        m('span', g.correctCount)
+      ]),
+      m('p', [
+        m('span', 'Incorrect'),
+        m('span', g.incorrectCount)
+      ])
+    ]);
+  }
+};
+
+var gameBoard = {
+  view: function() {
+    return m('div', {class: 'game_board'}, [
+      m("p", {class: "question"}, g.question),
+      m(answerForm),
+      m("p", {class: "feedback"}, g.feedback)
+    ]);
+  }
+};
+
 var answerForm = {
   view: function() {
       return m("form", {
@@ -266,6 +373,176 @@ var answerForm = {
       ])
   }
 }
+
+var Decks = {
+  oncreate: function() {
+    setButtonHighlight('decks_btn');
+  },
+  view: function() {
+    return m('div', {class: 'decks_container'},
+    [
+      // m('h2', 'Decks'),
+      d.map(function(i, iIndex) {
+        return m("div", {class: 'deck_container'}, [
+        m('div', {class: 'flex-row'}, [
+          m('h3', i.name),
+          m('span', {class: 'card_count'}, i.cards.length + ' Cards')
+        ]),
+        m('div', {class: 'flex-row'}, [
+          m('button', {
+            class: 'inverse',
+            onclick: function(){
+              clearGame();
+              removeDeck(iIndex);
+              saveDeck();
+              m.redraw();
+            } 
+          }, 'Delete'),
+          m('button', {
+            class: 'inverse',
+            onclick: function(){
+              clearGame();
+              m.route.set('/edit/' + d.indexOf(i));
+            } 
+          }, 'Edit'),
+          m('button', {
+            onclick: function() {
+              loadGame(i.cards);
+              m.route.set('/game')
+            }
+          }, 'Play')
+        ]),
+      ])}),
+      m("div", {class: 'deck_container'}, [
+        m('button', {
+          onclick: function() {
+            createNewDeck();
+            m.redraw();
+          }
+        }, 'Create New Deck')
+      ])
+    ]);
+  }
+};
+
+var Edit = {
+  oninit: function(vnode) {
+    deckIndex = vnode.attrs.index;
+    deck = cloneObj(d[deckIndex]);
+  },
+  view: function() {
+    return m('div', {class: 'cards_container'},
+    [
+      m('div', {class: 'flex-row around'}, [
+        m('h2', 'Deck Name'),
+        m("input.input[type=text][autocomplete=off]", {
+          oninput: function (e) {
+            deck.name = e.target.value;
+            saveDeck(deck, deckIndex);
+            m.redraw();
+          },
+          value: deck.name,
+          id: 'deck_name'
+        }),
+        m('button', {
+          onclick: function() {
+            loadGame(deck.cards);
+            m.route.set('/game')
+          }
+        }, 'Play Deck')
+      ]),
+      deck.cards.map(function(card, index, deckArr) {
+        return m('div', {class: 'card_container'}, [
+        m("form", {
+          onsubmit: function(e) {
+            e.preventDefault();
+          }
+        }, [
+          m('h3', 'Card ' + (index+1) + '/' + deckArr.length),
+          m('p', 'Question'),
+          m("textarea.textarea[autocomplete=off][rows=5][columns=50]", {
+            // oncreate: function(vnode) {
+            //     vnode.dom.style.height = '';
+            //     vnode.dom.style.height = vnode.scrollHeight + 3 + 'px';
+            // },
+            oncreate: function(vnode) {
+              setTimeout(function() {
+                vnode.dom.style.height = '';
+                vnode.dom.style.height = vnode.dom.scrollHeight + 3 + 'px';
+              }, 100);
+            },
+            oninput: function (e) {
+              card.q = e.target.value;
+              this.style.height = '';
+              this.style.height = this.scrollHeight + 3 + 'px';
+              saveDeck(deck, deckIndex);
+              m.redraw();
+            },
+            value: card.q,
+            id: "question" + index
+          }),
+          m('div', {class: 'flex-col'}, [
+            m("button", {
+              class: 'item-end',
+              onclick: function() {
+                speak(card.q);
+              }
+            }, "Test Speech")
+          ]),
+          m('p', {class: 'answer-label'}, 'Answer'),
+          m("input.input[type=text][autocomplete=off]", {
+            oninput: function (e) {
+              card.a = e.target.value;
+              saveDeck(deck, deckIndex);
+              m.redraw();
+            },
+            value: card.a,
+            id: "answer" + index
+          }),
+          m('div', {class: 'flex-row'}, [
+            m("button", {
+              class: 'inverse',
+              onclick: function() {
+                removeCard(deckArr, index);
+                saveDeck(deck, deckIndex);
+                m.redraw();
+              }
+            }, "Delete Card"),
+            m("button", {
+              onclick: function() {
+                speak(card.a);
+              }
+            }, "Test Speech")
+          ])
+        ])
+      ])}),
+      m('div', {class: 'card_container'}, [
+        m('button', {
+          onclick: function() {
+            createNewCard(deck.cards);
+            saveDeck(deck, deckIndex);
+            m.redraw();
+          }
+        }, 'Create New Card')
+      ])
+    ]);
+  }
+}
+
+var Settings = {
+  oncreate: function() {
+    setButtonHighlight('settings_btn');
+  },
+  view: function() {
+    return m("section", {id: "settings"}, [
+      // m('h2', 'Settings'),
+      m(speechSynthesisOptions),
+      m(ImportExport),
+      m(themeOptions),
+      m(caseSensitivityOptions)
+    ]);
+  }
+};
 
 var speechSynthesisOptions = {
   oncreate: function() {
@@ -424,123 +701,13 @@ var caseSensitivityOptions = {
     ]);
   }
 }
-
-var scoreBoard = {
-  view: function() {
-    return m('div', {class: 'score_board'}, [
-      m('h3', 'Scoreboard'),
-      m('p', [
-        m('span', 'Remaining'),
-        m('span', g.qaPairs.length)
-      ]),
-      m('p', [
-        m('span', 'Correct'),
-        m('span', g.correctCount)
-      ]),
-      m('p', [
-        m('span', 'Incorrect'),
-        m('span', g.incorrectCount)
-      ])
-    ]);
-  }
-};
-
-var gameBoard = {
-  view: function() {
-    return m('div', {class: 'game_board'}, [
-      m("p", {class: "question"}, g.question),
-      m(answerForm),
-      m("p", {class: "feedback"}, g.feedback)
-    ]);
-  }
-};
-
-var Game = {
-  oncreate: function() {
-    setButtonHighlight('game_btn');
-    if (!g.inProgress) {
-      g.question = 'Select a deck to play';
-      // m.redraw();
-    }
-  },
-  view: function() {
-    return m("section", {class: 'game_section'}, [
-      m(scoreBoard),
-      m(gameBoard)
-    ])
-  }
-}
-
-var Decks = {
-  oncreate: function() {
-    setButtonHighlight('decks_btn');
-  },
-  view: function() {
-    return m('div', {class: 'decks_container'},
-    [
-      // m('h2', 'Decks'),
-      d.map(i => m("div", {class: 'deck_container'}, [
-        m('h3', i.name),
-        m('span', {class: 'card_count'}, i.cards.length + ' Cards'),
-        m('button', {
-          onclick: function() {
-            loadGame(i.cards);
-            m.route.set('/game')
-          }
-        }, 'Play')
-        // i.cards.map(j => m('div', {class: 'card_container'}, [
-        //   m('p', 'Question: ' + j.q),
-        //   m('p', 'Answer: ' + j.a)
-        // ]))
-      ]))
-    ]);
-  }
-};
-
-var Settings = {
-  oncreate: function() {
-    setButtonHighlight('settings_btn');
-  },
-  view: function() {
-    return m("section", {id: "settings"}, [
-      // m('h2', 'Settings'),
-      m(speechSynthesisOptions),
-      m(ImportExport),
-      m(themeOptions),
-      m(caseSensitivityOptions)
-    ]);
-  }
-};
-
-var Header = {
-  view: function() {
-    return m("header", [
-      m("h1", "Active Recall"),
-      m('div', [
-        m('button', {id: 'game_btn', onclick: function() {m.route.set("/game")}}, "Game"),
-        m('button', {id: 'decks_btn', onclick: function() {m.route.set("/decks")}}, "Decks"),
-        m('button', {id: 'settings_btn', onclick: function() {m.route.set("/settings")}}, "Settings"),
-      ])
-    ]);
-  }
-};
-
-var Main = {
-  view: function() {
-    return m("main", [
-      m(Header),
-      m("div", {id: "content"}, [
-        
-      ])
-    ])
-  }
-}
 // ====end Mithril Components====
 
 // ====start Routing====
 m.mount(root, Main);
 m.route(document.getElementById('content'), "/decks", {
   "/decks": Decks,
+  "/edit/:index": Edit,
   "/game": Game,
   "/settings": Settings
 })
