@@ -251,8 +251,8 @@ function removeDeck(deckIndex) {
 
 function createNewCard(cardsArr) {
   cardsArr.push({
-    q: 'Type Question Here',
-    a: 'Type Answer Here'
+    q: '',
+    a: ''
   });
 }
 
