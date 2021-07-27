@@ -231,8 +231,8 @@ function createNewDeck() {
     name: 'New Deck',
     cards: [
       {
-        q: 'Type Question Here',
-        a: 'Type Answer Here'
+        q: '',
+        a: ''
       }
     ]
   });
@@ -460,11 +460,7 @@ var Edit = {
         }, [
           m('h3', 'Card ' + (index+1) + '/' + deckArr.length),
           m('p', 'Question'),
-          m("textarea.textarea[autocomplete=off][rows=5][columns=50]", {
-            // oncreate: function(vnode) {
-            //     vnode.dom.style.height = '';
-            //     vnode.dom.style.height = vnode.scrollHeight + 3 + 'px';
-            // },
+          m("textarea.textarea[autocomplete=off][placeholder=Type question here...][rows=5][columns=50]", {
             oncreate: function(vnode) {
               setTimeout(function() {
                 vnode.dom.style.height = '';
@@ -490,7 +486,7 @@ var Edit = {
             }, "Test Speech")
           ]),
           m('p', {class: 'answer-label'}, 'Answer'),
-          m("input.input[type=text][autocomplete=off]", {
+          m("input.input[type=text][placeholder=Type answer here...][autocomplete=off]", {
             oninput: function (e) {
               card.a = e.target.value;
               saveDeck(deck, deckIndex);
