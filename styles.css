@@ -187,14 +187,18 @@ header div {
   margin-bottom: 0.5em;
 }
 
-.file_buttons_container {
+.settings_option_container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.file_buttons_container h3 {
+.settings_option_container h3 {
   align-self: flex-start;
+}
+
+.settings_option_text {
+  margin-left: 0.5em;
 }
 
 

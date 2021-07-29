@@ -2,6 +2,10 @@
 var root = document.body;
 var synth = window.speechSynthesis;
 
+if (typeof synth === 'undefined') {
+  alert('Speech Synthesis is not supported on this browser. See https://caniuse.com/?search=Speech%20Synthesis for browser support.')
+}
+
 var voices = [];
 var voice = {}
 var prevVoiceLength = 0;
@@ -523,7 +527,7 @@ var Edit = {
       ])
     ]);
   }
-}
+};
 
 var Settings = {
   oncreate: function() {
@@ -535,7 +539,8 @@ var Settings = {
       m(speechSynthesisOptions),
       m(ImportExport),
       m(themeOptions),
-      m(caseSensitivityOptions)
+      m(caseSensitivityOptions),
+      m(problemsSection)
     ]);
   }
 };
@@ -610,11 +615,11 @@ var speechSynthesisOptions = {
       ])
     ]);
   }
-}
+};
 
 var ImportExport = {
   view: function() {
-    return m('div', {class: 'file_buttons_container'}, [
+    return m('div', {class: 'settings_option_container'}, [
         m('h3', 'Deck Options'),
         m('div', {class: 'import button_container'}, [
           m('label[for=import_file]', 'Import Decks'),
@@ -634,14 +639,14 @@ var ImportExport = {
         ])
       ])
   }
-}
+};
 
 var themeOptions = {
   oncreate: function() {
     document.getElementById(s.theme).checked = true;
   },
   view: function() {
-    return m('div', {class: 'file_buttons_container'}, [
+    return m('div', {class: 'settings_option_container'}, [
       m('h3', 'Theme'),
       m('form', {
         class: 'radios_container',
@@ -668,14 +673,14 @@ var themeOptions = {
       ])
     ]);
   }
-}
+};
 
 var caseSensitivityOptions = {
   oncreate: function() {
     document.getElementById(s.caseSensitive).checked = true;
   },
   view: function() {
-    return m('div', {class: 'file_buttons_container'}, [
+    return m('div', {class: 'settings_option_container'}, [
       m('h3', 'Case Sensitivity'),
       m('form', {
         class: 'radios_container',
@@ -696,7 +701,19 @@ var caseSensitivityOptions = {
       ])
     ]);
   }
-}
+};
+
+var problemsSection = {
+  view: function() {
+    return m('div', {class: 'settings_option_container'}, [
+      m('h3', 'Problems?'),
+      m('span', [
+        m('span', {class: 'settings_option_text'}, 'Make an issue '),
+        m('a', {href: 'https://github.com/Mcmartelle/active_recall_js/issues'}, 'here')
+      ])
+    ]);
+  }
+};
 // ====end Mithril Components====
 
 // ====start Routing====
