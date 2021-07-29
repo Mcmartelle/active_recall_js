@@ -57,12 +57,176 @@ var d = [ // d means Decks
         a: "Download as JSON"
       },
       {
-        q: "Add 'blank' and cards in your own JSON file",
+        q: "Add 'blank' and cards in your own JSON file, or by clicking the Create 'blank' button.",
         a: "decks"
       },
       {
         q: "Upload your own JSON of decks and cards by clicking the 'blank blank' button in Settings",
         a: "Choose File"
+      },
+      {
+        q: "Click the 'blank' button to change the cards and title of a deck.",
+        a: "edit"
+      },
+      {
+        q: "Editing changes are saved 'blank'",
+        a: "automatically"
+      }
+    ]
+  },
+  {
+    name: "US Capitals",
+    cards: [
+      {q: "What is the capital of Alabama?", a: "Montgomery"},
+      {q: "What is the capital of Alaska?", a: "Juneau"},
+      {q: "What is the capital of Arizona?", a: "Phoenix"},
+      {q: "What is the capital of Arkansas?", a: "Little Rock"},
+      {q: "What is the capital of California?", a: "Sacramento"},
+      {q: "What is the capital of Colorado?", a: "Denver"},
+      {q: "What is the capital of Connecticut?", a: "Hartford"},
+      {q: "What is the capital of Delaware?", a: "Dover"},
+      {q: "What is the capital of Hawaii?", a: "Honolulu"},
+      {q: "What is the capital of Florida?", a: "Tallahassee"},
+      {q: "What is the capital of Georgia?", a: "Atlanta"},
+      {q: "What is the capital of Idaho?", a: "Boise"},
+      {q: "What is the capital of Illinois?", a: "Springfield"},
+      {q: "What is the capital of Indiana?", a: "Indianapolis"},
+      {q: "What is the capital of Iowa?", a: "Des Moines"},
+      {q: "What is the capital of Kansas?", a: "Topeka"},
+      {q: "What is the capital of Kentucky?", a: "Frankfort"},
+      {q: "What is the capital of Louisiana?", a: "Baton Rouge"},
+      {q: "What is the capital of Maine?", a: "Augusta"},
+      {q: "What is the capital of Maryland?", a: "Annapolis"},
+      {q: "What is the capital of Massachusetts?", a: "Boston"},
+      {q: "What is the capital of Michigan?", a: "Lansing"},
+      {q: "What is the capital of Minnesota?", a: "St. Paul"},
+      {q: "What is the capital of Mississippi?", a: "Jackson"},
+      {q: "What is the capital of Missouri?", a: "Jefferson City"},
+      {q: "What is the capital of Montana?", a: "Helena"},
+      {q: "What is the capital of Nebraska?", a: "Lincoln"},
+      {q: "What is the capital of Nevada?", a: "Carson City"},
+      {q: "What is the capital of New Hampshire?", a: "Concord"},
+      {q: "What is the capital of New Jersey?", a: "Trenton"},
+      {q: "What is the capital of New Mexico?", a: "Santa Fe"},
+      {q: "What is the capital of North Carolina?", a: "Raleigh"},
+      {q: "What is the capital of North Dakota?", a: "Bismarck"},
+      {q: "What is the capital of New York?", a: "Albany"},
+      {q: "What is the capital of Ohio?", a: "Columbus"},
+      {q: "What is the capital of Oklahoma?", a: "Oklahoma City"},
+      {q: "What is the capital of Oregon?", a: "Salem"},
+      {q: "What is the capital of Pennsylvania?", a: "Harrisburg"},
+      {q: "What is the capital of Rhode Island?", a: "Providence"},
+      {q: "What is the capital of South Carolina?", a: "Columbia"},
+      {q: "What is the capital of South Dakota?", a: "Pierre"},
+      {q: "What is the capital of Tennessee?", a: "Nashville"},
+      {q: "What is the capital of Texas?", a: "Austin"},
+      {q: "What is the capital of Utah?", a: "Salt Lake City"},
+      {q: "What is the capital of Vermont?", a: "Montpelier"},
+      {q: "What is the capital of Virginia?", a: "Richmond"},
+      {q: "What is the capital of Washington?", a: "Olympia"},
+      {q: "What is the capital of West Virginia?", a: "Charleston"},
+      {q: "What is the capital of Wisconsin?", a: "Madison"},
+      {q: "What is the capital of Wyoming?", a: "Cheyenne"}
+    ]
+  },
+  {
+    "name": "Rust Primitives",
+    "cards": [
+      {
+        "a": "array",
+        "q": "A fixed-size \"blank\", denoted [T; N], for the element type, T, and the non-negative compile-time constant size, N."
+      },
+      {
+        "a": "bool",
+        "q": "The \"blank\" represents a value, which could only be either true or false. If you cast a \"blank\" into an integer, true will be 1 and false will be 0."
+      },
+      {
+        "a": "char",
+        "q": "The \"blank\" type represents a single character. More specifically, since ‘character’ isn’t a well-defined concept in Unicode, \"blank\" is a ‘Unicode scalar value’, which is similar to, but not the same as, a ‘Unicode code point’."
+      },
+      {
+        "a": "f32",
+        "q": "A number type having 1 sign bit, 8 exponent bits, and 24 significand precision bits, giving 6 to 9 significant decimal digits of precision."
+      },
+      {
+        "a": "f64",
+        "q": "A number type having 1 sign bit, 11 exponent bits, and 53 significand precision bits, giving 15 to 17 significant decimal digits of precision."
+      },
+      {
+        "a": "fn",
+        "q": "This type points to code, not data. It can be called just like functions. Like references, this pointer type is, among other things, assumed to not be null."
+      },
+      {
+        "a": "i8",
+        "q": "Numeric type with range of values from −128 to 127"
+      },
+      {
+        "a": "u8",
+        "q": "Numeric type with range of values from 0 to 255"
+      },
+      {
+        "a": "i16",
+        "q": "Numeric type with range of values from −32,768 to 32,767"
+      },
+      {
+        "a": "u16",
+        "q": "Numeric type with range of values from 0 to 65,535"
+      },
+      {
+        "a": "i32",
+        "q": "Numeric type with range of values from −2,147,483,648 to 2,147,483,647"
+      },
+      {
+        "a": "u32",
+        "q": "Numeric type with range of values from 0 to 4,294,967,295"
+      },
+      {
+        "a": "i64",
+        "q": "Numeric type with range of values from −9,223,372,036,854,775,808 to 9,223,372,036,854,775,807"
+      },
+      {
+        "a": "u64",
+        "q": "Numeric type with range of values from 0 to 18,446,744,073,709,551,615"
+      },
+      {
+        "a": "i128",
+        "q": "Numeric type with range of values from −170,141,183,460,469,231,731,687,303,715,884,105,728 to 170,141,183,460,469,231,731,687,303,715,884,105,727"
+      },
+      {
+        "a": "u128",
+        "q": "Numeric type with range of values from 0 to 340,282,366,920,938,463,463,374,607,431,768,211,455"
+      },
+      {
+        "a": "isize",
+        "q": "The pointer-sized signed integer type. The size of this primitive is how many bytes it takes to reference any location in memory. For example, on a 32 bit target, this is 4 bytes and on a 64 bit target, this is 8 bytes."
+      },
+      {
+        "a": "usize",
+        "q": "The pointer-sized unsigned integer type.The size of this primitive is how many bytes it takes to reference any location in memory. For example, on a 32 bit target, this is 4 bytes and on a 64 bit target, this is 8 bytes."
+      },
+      {
+        "a": "pointer",
+        "q": "The primitive type used by *const T, and *mut T. This is Raw and Unsafe."
+      },
+      {
+        "a": "reference",
+        "q": "represents a borrow of some owned value, both shared and mutable. It is a pointer that is assumed to be aligned, not null, and pointing to memory containing a valid value of T - for example"
+      },
+      {
+        "a": "slice",
+        "q": "A dynamically-sized view into a contiguous sequence, [T]. Contiguous here means that elements are laid out so that every element is the same distance from its neighbors."
+      },
+      {
+        "a": "str",
+        "q": "Also called a ‘string slice’, this is the most primitive string type. It is usually seen in its borrowed form, with an &. It is also the type of string literals"
+      },
+      {
+        "a": "tuple",
+        "q": "A finite heterogeneous sequence. Has a set length. Each element of the sequence can have a different type. Is indexed, elements can be accessed by position."
+      },
+      {
+        "a": "unit",
+        "q": "the () type, has exactly one value (), and is used when there is no other meaningful value that could be returned."
       }
     ]
   }
