@@ -129,104 +129,869 @@ var d = [ // d means Decks
       {q: "What is the capital of Wyoming?", a: "Cheyenne"}
     ]
   },
+
   {
-    "name": "Rust Primitives",
+    "name": "Big-O Data Structure Access Time Complexities",
     "cards": [
       {
-        "a": "array",
-        "q": "A fixed-size \"blank\", denoted [T; N], for the element type, T, and the non-negative compile-time constant size, N."
+        "q": "What is the average access time complexity for an Array?",
+        "a": "1"
       },
       {
-        "a": "bool",
-        "q": "The \"blank\" represents a value, which could only be either true or false. If you cast a \"blank\" into an integer, true will be 1 and false will be 0."
+        "q": "What is the average access time complexity for a Stack?",
+        "a": "n"
       },
       {
-        "a": "char",
-        "q": "The \"blank\" type represents a single character. More specifically, since ‘character’ isn’t a well-defined concept in Unicode, \"blank\" is a ‘Unicode scalar value’, which is similar to, but not the same as, a ‘Unicode code point’."
+        "q": "What is the average access time complexity for a Queue?",
+        "a": "n"
       },
       {
-        "a": "f32",
-        "q": "A number type having 1 sign bit, 8 exponent bits, and 24 significand precision bits, giving 6 to 9 significant decimal digits of precision."
+        "q": "What is the average access time complexity for a Singly-Linked List?",
+        "a": "n"
       },
       {
-        "a": "f64",
-        "q": "A number type having 1 sign bit, 11 exponent bits, and 53 significand precision bits, giving 15 to 17 significant decimal digits of precision."
+        "q": "What is the average access time complexity for a Double-Linked List?",
+        "a": "n"
       },
       {
-        "a": "fn",
-        "q": "This type points to code, not data. It can be called just like functions. Like references, this pointer type is, among other things, assumed to not be null."
+        "q": "What is the average access time complexity for a Skip List?",
+        "a": "log n"
       },
       {
-        "a": "i8",
-        "q": "Numeric type with range of values from −128 to 127"
+        "q": "What is the average access time complexity for a Hash Table?",
+        "a": "n/a"
       },
       {
-        "a": "u8",
-        "q": "Numeric type with range of values from 0 to 255"
+        "q": "What is the average access time complexity for a Binary Search Tree?",
+        "a": "log n"
       },
       {
-        "a": "i16",
-        "q": "Numeric type with range of values from −32,768 to 32,767"
+        "q": "What is the average access time complexity for a Cartesian Tree?",
+        "a": "n/a"
       },
       {
-        "a": "u16",
-        "q": "Numeric type with range of values from 0 to 65,535"
+        "q": "What is the average access time complexity for a B-Tree?",
+        "a": "log n"
       },
       {
-        "a": "i32",
-        "q": "Numeric type with range of values from −2,147,483,648 to 2,147,483,647"
+        "q": "What is the average access time complexity for a Red-Black Tree?",
+        "a": "log n"
       },
       {
-        "a": "u32",
-        "q": "Numeric type with range of values from 0 to 4,294,967,295"
+        "q": "What is the average access time complexity for a Splay Tree?",
+        "a": "n/a"
       },
       {
-        "a": "i64",
-        "q": "Numeric type with range of values from −9,223,372,036,854,775,808 to 9,223,372,036,854,775,807"
+        "q": "What is the average access time complexity for a AVL Tree?",
+        "a": "log n"
       },
       {
-        "a": "u64",
-        "q": "Numeric type with range of values from 0 to 18,446,744,073,709,551,615"
+        "q": "What is the average access time complexity for a KD Tree?",
+        "a": "log n"
       },
       {
-        "a": "i128",
-        "q": "Numeric type with range of values from −170,141,183,460,469,231,731,687,303,715,884,105,728 to 170,141,183,460,469,231,731,687,303,715,884,105,727"
+        "q": "What is the worst access time complexity for an Array?",
+        "a": "1"
       },
       {
-        "a": "u128",
-        "q": "Numeric type with range of values from 0 to 340,282,366,920,938,463,463,374,607,431,768,211,455"
+        "q": "What is the worst access time complexity for a Stack?",
+        "a": "n"
       },
       {
-        "a": "isize",
-        "q": "The pointer-sized signed integer type. The size of this primitive is how many bytes it takes to reference any location in memory. For example, on a 32 bit target, this is 4 bytes and on a 64 bit target, this is 8 bytes."
+        "q": "What is the worst access time complexity for a Queue?",
+        "a": "n"
       },
       {
-        "a": "usize",
-        "q": "The pointer-sized unsigned integer type.The size of this primitive is how many bytes it takes to reference any location in memory. For example, on a 32 bit target, this is 4 bytes and on a 64 bit target, this is 8 bytes."
+        "q": "What is the worst access time complexity for a Singly-Linked List?",
+        "a": "n"
       },
       {
-        "a": "pointer",
-        "q": "The primitive type used by *const T, and *mut T. This is Raw and Unsafe."
+        "q": "What is the worst access time complexity for a Double-Linked List?",
+        "a": "n"
       },
       {
-        "a": "reference",
-        "q": "represents a borrow of some owned value, both shared and mutable. It is a pointer that is assumed to be aligned, not null, and pointing to memory containing a valid value of T - for example"
+        "q": "What is the worst access time complexity for a Skip List?",
+        "a": "n"
       },
       {
-        "a": "slice",
-        "q": "A dynamically-sized view into a contiguous sequence, [T]. Contiguous here means that elements are laid out so that every element is the same distance from its neighbors."
+        "q": "What is the worst access time complexity for a Hash Table?",
+        "a": "n/a"
       },
       {
-        "a": "str",
-        "q": "Also called a ‘string slice’, this is the most primitive string type. It is usually seen in its borrowed form, with an &. It is also the type of string literals"
+        "q": "What is the worst access time complexity for a Binary Search Tree?",
+        "a": "n"
       },
       {
-        "a": "tuple",
-        "q": "A finite heterogeneous sequence. Has a set length. Each element of the sequence can have a different type. Is indexed, elements can be accessed by position."
+        "q": "What is the worst access time complexity for a Cartesian Tree?",
+        "a": "n/a"
       },
       {
-        "a": "unit",
-        "q": "the () type, has exactly one value (), and is used when there is no other meaningful value that could be returned."
+        "q": "What is the worst access time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst access time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst access time complexity for a Splay Tree?",
+        "a": "n/a"
+      },
+      {
+        "q": "What is the worst access time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst access time complexity for a KD Tree?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Data Structure Search Time Complexities",
+    "cards": [
+      {
+        "q": "What is the average search time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average search time complexity for a Stack?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average search time complexity for a Queue?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average search time complexity for a Singly-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average search time complexity for a Double-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average search time complexity for a Skip List?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a Hash Table?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average search time complexity for a Binary Search Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a Cartesian Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average search time complexity for a KD Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst search time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Stack?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Queue?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Singly-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Double-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Skip List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Hash Table?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Binary Search Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Cartesian Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst search time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst search time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst search time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst search time complexity for a KD Tree?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Data Structure Insertion Time Complexities",
+    "cards": [
+      {
+        "q": "What is the average insertion time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Stack?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Queue?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Singly-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Double-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Skip List?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Hash Table?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Binary Search Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Cartesian Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average insertion time complexity for a KD Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Stack?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Queue?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Singly-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Double-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Skip List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Hash Table?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Binary Search Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Cartesian Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst insertion time complexity for a KD Tree?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Data Structure Deletion Time Complexities",
+    "cards": [
+      {
+        "q": "What is the average deletion time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Stack?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Queue?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Singly-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Double-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Skip List?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Hash Table?",
+        "a": "1"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Binary Search Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Cartesian Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the average deletion time complexity for a KD Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Stack?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Queue?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Singly-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Double-Linked List?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Skip List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Hash Table?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Binary Search Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Cartesian Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a B-Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Red-Black Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a Splay Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a AVL Tree?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst deletion time complexity for a KD Tree?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Data Structure Space Complexities",
+    "cards": [
+      {
+        "q": "What is the worst space complexity for an Array?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Stack?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Queue?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Singly-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Double-Linked List?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Skip List?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the worst space complexity for a Hash Table?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Binary Search Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Cartesian Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a B-Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Red-Black Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a Splay Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a AVL Tree?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for a KD Tree?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Data Structures",
+    "cards": [
+      {
+        "q": "A data structure consisting of a collection of elements, each identified by at least one index. A 'blank' is stored such that the position of each element can be computed from its index tuple by a mathematical formula.",
+        "a": "Array"
+      },
+      {
+        "q": "A last in, first out, abstract data type that serves as a collection of elements.",
+        "a": "Stack"
+      },
+      {
+        "q": "A first in, first out, abstract data type that serves as a collection of elements.",
+        "a": "Queue"
+      },
+      {
+        "q": "A data structure containing nodes which have a 'value' field as well as 'next' field, which points to the next node in line of nodes.",
+        "a": "Singly-Linked List"
+      },
+      {
+        "q": "In a 'blank', each node contains, besides the next-node link, a second link field pointing to the previous node in the sequence.",
+        "a": "Double-Linked List"
+      },
+      {
+        "q": "A 'blank' is built in layers. The bottom layer, 1, is an ordinary ordered linked list. Each higher layer acts as an \"express lane\" for the lists below, where an element in layer i appears in layer i+1 with some fixed probability.",
+        "a": "Skip List"
+      },
+      {
+        "q": "A data structure that implements an associative array or dictionary. It is an abstract data type that maps keys to values. A hash table uses a hash function to compute an index, also called a hash code, into an array of buckets or slots, from which the desired value can be found. During lookup, the key is hashed and the resulting hash indicates where the corresponding value is stored.",
+        "a": "Hash Table"
+      },
+      {
+        "q": "A 'blank' is a rooted binary tree in which the nodes are arranged in total order in which the nodes with keys greater than any particular node is stored on the right sub-trees and the ones with equal to or less than are stored on the left sub-tree satisfying the 'blank' property",
+        "a": "Binary Search Tree"
+      },
+      {
+        "q": "A binary tree derived from a sequence of numbers; it can be uniquely defined from the properties that it is heap-ordered and that a symmetric (in-order) traversal of the tree returns the original sequence.",
+        "a": "Cartesian Tree"
+      },
+      {
+        "q": "A 'blank' of order m is a tree which satisfies the following properties:\n1. Every node has at most m children.\n2. Every internal node has at least m/2 children.\n3. Every non-leaf node has at least two children.\n4. All leaves appear on the same level.\n5. A non-leaf node with k children contains k−1 keys.",
+        "a": "B-Tree"
+      },
+      {
+        "q": "A kind of self-balancing binary search tree. Each node stores an extra bit representing \"color\", used to ensure that the tree remains balanced during insertions and deletions. When the tree is modified, the new tree is rearranged and \"repainted\" to restore the coloring properties that constrain how unbalanced the tree can become in the worst case. The properties are designed such that this rearranging and recoloring can be performed efficiently.",
+        "a": "Red-Black Tree"
+      },
+      {
+        "q": "A binary search tree with the additional property that recently accessed elements are quick to access again.",
+        "a": "Splay Tree"
+      },
+      {
+        "q": "The first self-balancing binary search tree to be invented. The heights of the two child subtrees of any node differ by at most one; if at any time they differ by more than one, rebalancing is done to restore this property.",
+        "a": "AVL Tree"
+      },
+      {
+        "q": "The 'blank' is a binary tree in which every node is a multi-dimensional point. Every non-leaf node can be thought of as implicitly generating a splitting hyperplane that divides the space into two parts, known as half-spaces. Points to the left of this hyperplane are represented by the left subtree of that node and points to the right of the hyperplane are represented by the right subtree.",
+        "a": "KD Tree"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Sorting Algorithm Time Complexities",
+    "cards": [
+      {
+        "q": "What is the best time complexity for Quicksort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the best time complexity for Mergesort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the best time complexity for Timsort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the best time complexity for Heapsort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the best time complexity for Bubble Sort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the best time complexity for Insertion Sort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the best time complexity for Selection Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the best time complexity for Tree Sort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the best time complexity for Shell Sort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the best time complexity for Bucket Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the best time complexity for Radix Sort?",
+        "a": "n k"
+      },
+      {
+        "q": "What is the best time complexity for Counting Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the best time complexity for Cubesort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the average time complexity for Quicksort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the average time complexity for Mergesort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the average time complexity for Timsort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the average time complexity for Heapsort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the average time complexity for Bubble Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the average time complexity for Insertion Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the average time complexity for Selection Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the average time complexity for Tree Sort?",
+        "a": " n log n"
+      },
+      {
+        "q": "What is the average time complexity for Shell Sort?",
+        "a": "n log n squared"
+      },
+      {
+        "q": "What is the average time complexity for Bucket Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the average time complexity for Radix Sort?",
+        "a": "n k"
+      },
+      {
+        "q": "What is the average time complexity for Counting Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the average time complexity for Cubesort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the worst time complexity for Quicksort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Mergesort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the worst time complexity for Timsort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the worst time complexity for Heapsort?",
+        "a": "n log n"
+      },
+      {
+        "q": "What is the worst time complexity for Bubble Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Insertion Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Selection Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Tree Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Shell Sort?",
+        "a": "n log n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Bucket Sort?",
+        "a": "n squared"
+      },
+      {
+        "q": "What is the worst time complexity for Radix Sort?",
+        "a": "n k"
+      },
+      {
+        "q": "What is the worst time complexity for Counting Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the worst time complexity for Cubesort?",
+        "a": "n log n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Sorting Algorithm Space Complexities",
+    "cards": [
+      {
+        "q": "What is the worst space complexity for Quicksort?",
+        "a": "log n"
+      },
+      {
+        "q": "What is the worst space complexity for Mergesort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for Timsort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for Heapsort?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst space complexity for Bubble Sort?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst space complexity for Insertion Sort?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst space complexity for Selection Sort?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst space complexity for Tree Sort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for Shell Sort?",
+        "a": "1"
+      },
+      {
+        "q": "What is the worst space complexity for Bucket Sort?",
+        "a": "n"
+      },
+      {
+        "q": "What is the worst space complexity for Radix Sort?",
+        "a": "n + k"
+      },
+      {
+        "q": "What is the worst space complexity for Counting Sort?",
+        "a": "k"
+      },
+      {
+        "q": "What is the worst space complexity for Cubesort?",
+        "a": "n"
+      }
+    ]
+  },
+  {
+    "name": "Big-O Sorting Algorithms",
+    "cards": [
+      {
+        "q": "Slightly faster than merge sort and heapsort for randomized data, particularly on larger distributions. 'Blank' is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. For this reason, it is sometimes called partition-exchange sort. The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting.",
+        "a": "Quicksort"
+      },
+      {
+        "q": "'Blank' works as follows:\n1. Divide the unsorted list into n sublists, each containing one element (a list of one element is considered sorted).\n2. Repeatedly concatenate sublists to produce new sorted sublists until there is only one sublist remaining. This will be the sorted list.",
+        "a": "Mergesort"
+      },
+      {
+        "q": "Derived from merge sort and insertion sort, designed to perform well on many kinds of real-world data.",
+        "a": "Timsort"
+      },
+      {
+        "q": "An improved selection sort: divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region. Unlike selection sort, does not waste time with a linear-time scan of the unsorted region; rather, heap sort maintains the unsorted region in a 'blank' data structure to more quickly find the largest element in each step.",
+        "a": "Heapsort"
+      },
+      {
+        "q": "A simple sorting algorithm that repeatedly steps through the input list element by element, comparing the current element with the one after it, swapping their values if needed. These passes through the list are repeated until no swaps had to be performed during a pass.",
+        "a": "Bubble Sort"
+      },
+      {
+        "q": "A simple sorting algorithm that builds the final sorted list one item at a time by comparisons.",
+        "a": "Insertion Sort"
+      },
+      {
+        "q": "An in-place comparison sorting algorithm. Inefficient on large lists, and generally performs worse than the similar insertion sort. 'Blank' is noted for its simplicity and has performance advantages over more complicated algorithms in certain situations, particularly where auxiliary memory is limited.",
+        "a": "Selection Sort"
+      },
+      {
+        "q": "A sort algorithm that builds a binary search tree from the elements to be sorted, and then traverses the tree (in-order) so that the elements come out in sorted order.",
+        "a": "Tree Sort"
+      },
+      {
+        "q": "An in-place comparison sort. It can be seen as either a generalization of sorting by exchange (bubble sort) or sorting by insertion (insertion sort). The method starts by sorting pairs of elements far apart from each other, then progressively reducing the gap between elements to be compared. By starting with far apart elements, it can move some out-of-place elements into position faster than a simple nearest neighbor exchange.",
+        "a": "Shell Sort"
+      },
+      {
+        "q": "A sorting algorithm that works by distributing the elements of an array into a number of 'blank'. Each 'blank' is then sorted individually, either using a different sorting algorithm, or by recursively applying the 'blank' sorting algorithm.",
+        "a": "Bucket Sort"
+      },
+      {
+        "q": "A non-comparative sorting algorithm. It avoids comparison by creating and distributing elements into buckets according to their 'blank'. For elements with more than one significant digit, this bucketing process is repeated for each digit, while preserving the ordering of the prior step, until all digits have been considered.",
+        "a": "Radix Sort"
+      },
+      {
+        "q": "An integer sorting algorithm. It operates by counting the number of objects that possess distinct key values, and applying prefix sum on those counts to determine the positions of each key value in the output sequence.",
+        "a": "Counting Sort"
+      },
+      {
+        "q": "A parallel sorting algorithm that builds a self-balancing multi-dimensional array from the keys to be sorted. After each key is inserted it can be rapidly converted to an array.",
+        "a": "Cubesort"
       }
     ]
   }
