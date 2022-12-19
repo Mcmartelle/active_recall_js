@@ -1,4 +1,4 @@
-# active_recall_js
+# Active Recall JS
 Like [Anki](https://en.wikipedia.org/wiki/Anki_(software)) but more interactive and using text to speech for easy eyes closed studying.
 
 It's fun to play with the voice options on the Settings page.
